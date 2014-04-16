@@ -14,24 +14,59 @@
            <script type="text/javascript" src="/static/script/common.js"></script>           
     
 <script type="text/javascript">
+
+
+function contains(list, element) {
+    //alert(typeof list);
+    //alert(list);
+    list = list.split(",");
+    for (var i = 0; i < list.length; i++) {
+        if (list[i] === element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
 function sidebar_click(tag)
 {
-alert(tag);
 //document.getElementById("div1").innerHTML="content changed"
-var product_info = "";
+//var hello = "{{product_information.0.service_tag}}";
+//alert(hello);
+var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{% endfor %}{% endfor %}";
+product_info=product_info.split(":");
+//alert(product_info[4])
+var inner_html="";
+for (var i=0 ;i<product_info.length; i++) {
+//alert(product_info[i])
+//alert(product_info[i]);
+//alert(tag);
+if (product_info[i]==tag){
+inner_html+= "<li class='box'><div class='head'><img src='/static/images/logo-ruby.png' /></div><div class='content'><h4><b>Product : "+product_info[i-4]+"<h4><b>Version : "+product_info[i-3]+"<h4><b>Operating System : "+product_info[i-2]+"<h4><b>Architecture : "+product_info[i-1]+"</div><button class='btn'  data-toggle='modal'>Install</button></li>"
+
+
+
+
+}
+} 
+//alert(product_info);
+document.getElementById("product_filter").innerHTML=inner_html;
 
 }
 </script>
 
 
 </head>
-    <body>        
-        <div class="page">           
-            <div id="header">
-                <h1><span>Persistent</span>On Demand Software Installation</h1>
-                <span class="tagline">Partners in Innovation</span>
-                </span>                
-                <div class="subheader"><a href="#">Applications</a>><a href="#">Quality Engineering</a></div>
+<body>        
+<div class="page">           
+<div id="header">
+<h1><span>Persistent</span>On Demand Software Installation</h1>
+<span class="tagline">Partners in Innovation</span>
+</span>                
+<div class="subheader"><a href="#">Applications</a>><a href="#">Quality Engineering</a></div>
             </div>
             <div id="page-content">     
                 <div id="page-content-inner">     
@@ -67,7 +102,12 @@ var product_info = "";
 
 
 
-				<ul class="boxes">
+				<ul id="product_filter" class="boxes">
+
+
+
+
+
 				     <li class="box">
 			                <div class="head">
 					   <img src="/static/images/logo-ruby.png" />
@@ -96,7 +136,7 @@ var product_info = "";
                 {% endfor %}
                  </div>
                  
-<button class="btn" href="#machinedetails" data-toggle="modal">Install</button>
+<button class="btn"  data-toggle="modal">Install</button>
                   </li>
              {% endfor %}
 	
@@ -135,58 +175,6 @@ var product_info = "";
                 </div>
             </div>
         </div>
-
-
-
-
-<div class="modal fade" id="machinedetails" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-							<h4 class="modal-title" id="myModalLabel">
-								Modal title
-							</h4>
-						</div>
-						<div class="modal-body">
-							
-							<form role="form">
-
-							<div class="form-group"><label>Machine Name</label><input type="text" class="form-control" id="machinename" placeholder="Enter Machine Name" >
-		  </div>
-		  <br>
-		  <div class="form-group">
-		    <label>Machine Password</label>
-		    <input type="password" class="form-control" id="machinepassword" placeholder="Machine Password" >
-		  </div>
-		<br>
-		  <div class="form-group">
-		    <label >Machine IP</label>
-		    <input type="text" class="form-control" id="machineip" placeholder="Enter IP" >
-		  </div>
-		  <br>
-		  
-		  <div class="form-group">
-		    <label>Operating System</label>
-		    <input type="text" class="form-control" id="operatingsystem" placeholder="Enter IP" >
-		  </div>
-		  <br>
-		  
-		  <div class="modal-footer">
-							<button type="submit" class="btn btn-default">Submit</button> <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
-						</div>
-						</form>
-						</div>
-					</div>
-					
-			</div>
-	</div>
-
-
-
-
-
-
 
 
 
