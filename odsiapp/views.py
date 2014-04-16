@@ -62,7 +62,7 @@ Converts the single element list into a json object
 Iterating through the service list obtained 
 Renders the local variables to homepage.html"""
 def homepage(requestuest):
-    pdb.set_trace()
+    #pdb.set_trace()
     response = get_services()
     list_service = []
     service=response.readlines()
@@ -110,5 +110,6 @@ def get_product_info(total_list):
                 request = urllib2.Request(url)
  	        response = urllib2.urlopen(request)
                 product_info = response.readlines()
-                product_information.append(ProductInfo(item.service_id,item.service_tag,product_info))
+                product_info_dictionary=ast.literal_eval(product_info[0])
+                product_information.append(ProductInfo(item.service_id,item.service_tag,product_info_dictionary))
     return product_information
