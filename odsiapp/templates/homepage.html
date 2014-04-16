@@ -25,157 +25,68 @@
                 <div id="page-content-inner">     
                 <div class="sidebar-before"></div>                
                 <div class="sidebar">                
-                   
-                    <ul class="paging2">
-                        <li><span>Applications<span class="icon-collapse"/></span></span>
-                            <ul class="sub">
-                             <li data-id="div1"><span class="active">Quality Engineering</span></li>
-                            <li data-id="div2"><span> Dev Ops</span></li>
-                            <li><span>Database Servers</span></li>
-                            <li><span>Others</span></li>
-                            </ul>
-                        </li>
-                        <li><span>Template</span></li>
-                        <li><span>Operating System</span></li>
-                        <li><span>Configuration</span></li>
-                         <li><span id="installation-list">Installations In Progress</span></li>
-                    </ul>                  
-                   
-                </div>              
+    
+
+		<ul class="paging2">
+                 {% for item in list_service %}
+                  <li><span>{{item.service_name}}<span class="icon-collapse"></span></span>
+                        <ul class="sub">
+                                {% for tag in item.service_tags %}
+                                <li data-id="div1"><span class="active">{{tag}}</span></li>
+                        {% endfor %}
+                    </ul>
+                   </li>
+                   {% endfor %}
+               <li  data-id="div2"><span>Status Report</span></li>
+
+                    </ul>
+</div>
+
+
+
                 <div id="wrapper">
                      <div id="toggle-button" class="close-panel"></div>
                     <div id="softwaresPage">                       
                         <div class="page-header"><span class="space">Quality Engineering</span><span>|</span><span class="sub-text">Software List for installation.</span></div>  
                         
-                              <div id="div1" class="apps slider-wrapper">                                   
-                                    
-									<br/><br/>
-									<ul class="boxes">
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-									</ul>
-                                </div>
-								
-								
-								<div id="div2" class="apps slider-wrapper">                                   
-                                    
-									<br/><br/>
-									<ul class="boxes">
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Configure</button>
-										</li>
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-										
-										
-										<li class="box">
-											<div class="head">
-												<img src="/static/images/logo-ruby.png" />
-											</div>
-											<div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-											<!--button class="install-btn btn">Install</button-->
-											<button class="install-btn btn">Install</button>
-										</li>
-									</ul>
-                                </div>
-								<br/><br/><br/>
+                              <div id="div1" class="apps slider-wrapper">                     
+				<br/><br/>
+				<ul class="boxes">
+				     <li class="box">
+			                <div class="head">
+					   <img src="/static/images/logo-ruby.png" />
+ 			                </div>
+	                                <div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
+				         <button class="install-btn btn">Install</button>
+			 	     </li>
+                                      
+
+
+
+ 
+
+
+			<li class="box">
+                                        <div class="head">
+                                           <img src="/static/images/logo-ruby.png" />
+                                        </div>
+                                        <div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
+                                         <button class="install-btn btn">Install</button>
+                                     </li>
+
+
+
+
+
+
+
+
+
+
+
+                
+			</ul>
+					<br/><br/><br/>
                     </div>
                      </div>
                 </div>

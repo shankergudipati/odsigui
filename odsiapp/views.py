@@ -26,9 +26,9 @@ class TagClass():
          self.software_id_name=software_id_name
 
 class ProductInfo:
-     def __init__(self,service_id,software_id,product_info_list):
+     def __init__(self,service_id,service_tag,product_info_list):
          self.service_id=service_id
-         self.software_id=software_id
+         self.service_tag=service_tag
          self.product_info_list=product_info_list
 
 
@@ -62,7 +62,7 @@ Converts the single element list into a json object
 Iterating through the service list obtained 
 Renders the local variables to homepage.html"""
 def homepage(requestuest):
-#    pdb.set_trace()
+    pdb.set_trace()
     response = get_services()
     list_service = []
     service=response.readlines()
@@ -110,5 +110,5 @@ def get_product_info(total_list):
                 request = urllib2.Request(url)
  	        response = urllib2.urlopen(request)
                 product_info = response.readlines()
-                product_information.append(ProductInfo(item.service_id,key,product_info))
+                product_information.append(ProductInfo(item.service_id,item.service_tag,product_info))
     return product_information
