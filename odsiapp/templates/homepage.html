@@ -72,6 +72,7 @@ document.getElementById("product_filter").innerHTML=inner_html;
     
 
 		<ul class="paging2">
+		<li><span>All<span></span></span></li>
                  {% for item in list_service %}
                   <li><span>{{item.service_name}}<span class="icon-collapse"></span></span>
                         <ul class="sub">
@@ -105,30 +106,26 @@ document.getElementById("product_filter").innerHTML=inner_html;
 
 
 
-				     <li class="box">
-			                <div class="head">
-					   <img src="/static/images/logo-ruby.png" />
- 			                </div>
-	                                <div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-				         <button class="install-btn btn">Install</button>
-			 	     </li>
-                                      
-
-
-
  	     {% for item in product_information %}
-                  <li class="box">
+<!--                  <li class="box">
                     <div class="head">
                       <img src="/static/images/logo-ruby.png" />
                     </div>
 
-                    <div class="content">
+                    <div class="content"> -->
 
 		{% for key, values in item.product_info_list.items %}
+		<li class="box">
+                    <div class="head">
+                      <img src="/static/images/{{key}}.png"/>
+                    </div>
+
+                    <div class="content">
+		
 		<h4><b>Product : {{ values.0 }} </b></h4>
                 <h4><b>Version : {{ values.1 }} </b></h4>
 		<h4><b>Operating System : {{ values.2 }} </b></h4>
-		<h4><b>Cost : {{ values.3 }} </b></h4>
+		<h4><b>Architecture : {{ values.3 }} </b></h4>
 
                 {% endfor %}
                  </div>
@@ -141,16 +138,6 @@ document.getElementById("product_filter").innerHTML=inner_html;
 
 
 
-
-
-
-				<li class="box">
-                                        <div class="head">
-                                           <img src="/static/images/logo-ruby.png" />
-                                        </div>
-                                        <div class="content">We support Ruby applications written using the Rails, Sinatra, and Rack frameworks.</div>
-                                         <button class="install-btn btn">Install</button>
-                                     </li>
 
 
                 
