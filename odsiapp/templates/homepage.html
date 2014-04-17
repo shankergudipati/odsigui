@@ -36,7 +36,7 @@ function sidebar_click(tag)
 //document.getElementById("div1").innerHTML="content changed"
 //var hello = "{{product_information.0.service_tag}}";
 //alert(hello);
-var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{% endfor %}{% endfor %}";
+var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{% endfor %}{% endfor %}";
 product_info=product_info.split(":");
 //alert(product_info[4])
 var inner_html="";
@@ -45,10 +45,7 @@ for (var i=0 ;i<product_info.length; i++) {
 //alert(product_info[i]);
 //alert(tag);
 if (product_info[i]==tag){
-inner_html+= "<li class='box'><div class='head'><img src='/static/images/logo-ruby.png' /></div><div class='content'><h4><b>Product : "+product_info[i-4]+"<h4><b>Version : "+product_info[i-3]+"<h4><b>Operating System : "+product_info[i-2]+"<h4><b>Architecture : "+product_info[i-1]+"</div><button class='btn'  data-toggle='modal'>Install</button></li>"
-
-
-
+inner_html+= "<li class='box'><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><br><br><h4><b>Product : "+product_info[i-4]+"<h4><b>Version : "+product_info[i-3]+"<h4><b>Supporting OS : "+product_info[i-2]+"<h4><b>Architecture : "+product_info[i-1]+"</div><button class='btn' data-toggle='modal'>Install</button></li>"
 
 }
 } 
@@ -156,16 +153,6 @@ document.getElementById("product_filter").innerHTML=inner_html;
                                      </li>
 
 
-
-
-
-
-
-
-
-
-
-
                 
 			</ul>
 					<br/><br/><br/>
@@ -175,8 +162,6 @@ document.getElementById("product_filter").innerHTML=inner_html;
                 </div>
             </div>
         </div>
-
-
 
 
 
