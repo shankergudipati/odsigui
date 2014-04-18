@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+    <html>
+
+    <head>
+	{% load staticfiles %}
+        <meta http-equiv="X-UA-Compatible" content="IE=9">
+        <title>Persistent ODSI</title>
+        <link rel="shortcut icon" href="/static/new/images/favicon.ico" type="image/x-icon" />
+        <script type="text/javascript" src="/static/new/script/jquery.js"></script>
+        <script type="text/javascript" src="/static/new/script/jquery-ui-1.10.4.custom.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/new/css/style.css" />      
+        <link rel="stylesheet" type="text/css" href="/static/new/css/jquery-ui-1.10.4.custom.css" />
+        <link rel="stylesheet" type="text/css" href="/static/new/css/avgrund.css" />           
+        <script type="text/javascript" src="/static/new/script/jquery.avgrund.js"></script>
+        
+    
+
+
+<script>
+function clickd()
+{
+$.ajax({
+    //url: 'http://10.233.52.152:9090/samplemethod',
+    url: 'http://10.233.52.111:8001/req_status_all/',
+    contentType: "application/json",
+    dataType: "jsonp",
+    jsonp: "callback",
+    jsonpCallback: "test",
+    success: function (data) {
+                                console.log(data);
+                                console.log(data['1']);
+                                $('#product_filter').html('');
+		 $('#product_filter').append("<table id='product_filter_table'  style='border:1px solid black;width:90%;'><thead><tr style='border 2px solid black;background-color:#DDD;'><th style='font-weight:bold;color:blue; padding:10px;border:1px solid black;'>Request Id</th><th style='font-weight:bold;color:blue; padding:1px;border:1px solid black;'>Username</th><th style='font-weight:bold;color:blue; padding:10px;border:1px solid black;'>Product Name</th><th style='font-weight:bold;color:blue; padding:10px;border:1px solid black;'>Machine IP</th><th style='font-weight:bold;color:blue; padding:10px;border:1px solid black;'>Status</th><th style='font-weight:bold;color:blue; padding:10px;border:1px solid black;'>Remarks</th></tr></thead></table>");
+
+                   $.each(data,function(key,value){
+var tableData = "<tr style='border 2px solid black;background-color:#DDD;width:90%;'><td style='border:1px solid black;padding:5px;text-align:center;'>"+key+"</td>";
+
+                                                                                                                           for (var key in value) {
+ tableData = tableData + "<td style='border:1px solid black;padding:5px;text-align:center;'>"+value[key]+"</td>";
+                                     }                                                                                       
+tableData = tableData + "</tr>";
+ $('#product_filter_table').append(tableData);
+                                                                                                                                });
+//                                
+                                //setTimeout(clickd(),10000);
+    }
+});
+}
+function showConfiguration(){
+ document.getElementById('details_popup').style.visibility = 'hidden';
+ document.getElementById('configuration_popup').style.visibility = 'visible';
+}
+</script>
+
+
+
+
+<!-- End of ajax scripts -->
+
+
+
+
+
+
+<script type="text/javascript">
+function contains(list, element) {
+    //alert(typeof list);
+    //alert(list);
+    list = list.split(",");
+    for (var i = 0; i < list.length; i++) {
+        if (list[i] === element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+function sidebar_click(tag)
+{
+//document.getElementById("div1").innerHTML="content changed"
+//var hello = "{{product_information.0.service_tag}}";
+//alert(hello);
+var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{% endfor %}{% endfor %}";
+product_info=product_info.split(":");
+//alert(product_info[4])
+var inner_html="";
+for (var i=0 ;i<product_info.length; i++) {
+//alert(product_info[i])
+//alert(product_info[i]);
+//alert(tag);
+if (product_info[i]==tag){
+inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><br><br><h4><b>Product : "+product_info[i-4]+"<h4><b>Version : "+product_info[i-3]+"<h4><b>Supporting OS : "+product_info[i-2]+"<h4><b>Architecture : "+product_info[i-1]+"</div><button class='install-btn btn'>Install</button></div></li>"
+
+
+
+}
+} 
+//alert(product_info);
+document.getElementById("product_filter").innerHTML=inner_html;
+
+}
+</script>
+
+<script type="text/javascript">
+function display_all()
+{
+//alert('this is all');
+var inner_html="{% for item in product_information %}{% for key, values in item.product_info_list.items %}<li><div title='{{ values.0 }}'><div class='head'><img src='/static/images/{{key}}.png'/></div><div class='content'><h4><b>Product : {{ values.0 }} </b></h4><h4><b>Version : {{ values.1 }} </b></h4><h4><b>Operating System : {{ values.2 }} </b></h4><h4><b>Architecture : {{ values.3 }} </b></h4>{% endfor %}</div><button class='install-btn btn'>Install</button></div></li>{% endfor %}";
+document.getElementById("product_filter").innerHTML=inner_html;
+}
+</script>
+
+</head>
+
+    <body>
+
+        <div class="page">
+            <div id="header">
+                <h1><span>Persistent</span>On Demand Software Installation</h1>
+                <span class="tagline">Partners in Innovation</span>
+                </span>
+                <div class="subheader"><a href="#">Applications</a>><a href="#">Quality Engineering</a>
+                </div>
+            </div>
+            <div id="page-content">
+                <div id="page-content-inner">
+                    <div class="sidebar-before"></div>
+                    <div class="sidebar">
+
+
+
+		<ul class="paging2">
+                <li onClick="display_all();"><span>All<span></span></span></li>
+                 {% for item in list_service %}
+                  <li><span>{{item.service_name}}<span class="icon-collapse"></span></span>
+                        <ul class="sub">
+                                {% for tag in item.service_tags %}
+                                <li data-id="div1" onclick="sidebar_click('{{tag}}');"><span class="active">{{tag}}</span></li>
+                        {% endfor %}
+                    </ul>
+                   </li>
+                   {% endfor %}
+               <li  id="div2" onClick="clickd();"><span>Status Report</span></li>
+
+                    </ul>
+
+                    </div>
+
+
+
+
+
+
+                    <div id="wrapper">
+                        <div id="toggle-button" class="close-panel"></div>
+                        <div id="softwaresPage">
+                            <div class="page-header"><span class="space">Quality Engineering</span><span>|</span><span class="sub-text">Software List for installation.</span>
+                            </div>
+
+
+
+
+
+                            <div class="slider-wrapper">
+                                <ul id="product_filter" class="bxslider">
+
+
+<!--                                    <li> 
+
+                                        <div title="jb ss">
+                                            <div class="head">
+                                                <img src="images/logo-jboss.gif" />
+                                            </div>
+                                            <div class="content">JBoss Application Server is an open-source, cross-platform Java application server developed by JBoss.Open-source used for implementing Java applications and other Web-based applications and software.</div>
+                                            <button class="install-btn btn">Install</button>
+                                        </div>
+                                    </li>
+-->
+
+
+ {% for item in product_information %}
+
+                {% for key, values in item.product_info_list.items %}
+                <li>
+                     <div title="{{ values.0 }}">
+                    <div class="head">
+                      <img src="/static/images/{{key}}.png"/>
+                    </div>
+
+                    <div class="content">
+
+                <h4><b>Product : {{ values.0 }} </b></h4>
+                <h4><b>Version : {{ values.1 }} </b></h4>
+                <h4><b>Operating System : {{ values.2 }} </b></h4>
+                <h4><b>Architecture : {{ values.3 }} </b></h4>
+
+                {% endfor %}
+                 </div>
+
+<button class="install-btn btn" >Install</button>
+		</div>
+                  </li>
+             {% endfor %}
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>       
+        <div class="modal-box">
+	<div id="details_popup">
+	    <h2>Details</h2>
+            content
+	    <button class="btn" type="button" id="test" onClick="showConfiguration()">Test</button>
+	</div>
+	<div  id="configuration_popup" style="visibility:hidden;">
+            <h2>Configurations</h2> 
+            <form>
+            <div class="label-row">
+                <div class="label">IP Address:</div>
+                <div class="label-value">
+                    <input type="text" class="form-control" id="ip" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                </div>
+            </div>
+            <div class="label-row">
+                <div class="label">UserName:</div>
+                <div class="label-value">
+                    <input type="text" class="form-control" id="username" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                </div>
+            </div>
+            <div class="label-row">
+                <div class="label">Password:</div>
+                <div class="label-value">
+                    <input type="password" class="form-control" id="password" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                </div>
+            </div>
+                <button class="btn" type="button" id="save" onclick="saveForm();">Save</button>
+            <button type="reset" class="btn">Reset</button>
+            </form>          
+</div>
+        </div>
+         <script type="text/javascript" src="/static/new/script/common.js"></script>       
+    </body>
+
+    </html>
+
+

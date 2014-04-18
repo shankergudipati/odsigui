@@ -10,4 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^homepage/$',homepage),
+    url(r'^homepage1/$',homepage1),
+
 )

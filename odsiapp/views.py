@@ -61,7 +61,7 @@ Reading the responseponse object and sorting it into a service object returns a 
 Converts the single element list into a json object
 Iterating through the service list obtained 
 Renders the local variables to homepage.html"""
-def homepage(requestuest):
+def homepage(request):
     #pdb.set_trace()
     response = get_services()
     list_service = []
@@ -71,7 +71,7 @@ def homepage(requestuest):
         list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
     total_list=total_tags(list_service)
     product_information=get_product_info(total_list)
-    return render(requestuest,"homepage.html",locals())
+    return render(request,"homepage.html",locals())
 
 """ get_tags_by_service method returns the tags by taking the services """
 def get_tags_by_service(service_id):
@@ -113,3 +113,25 @@ def get_product_info(total_list):
                 product_info_dictionary=ast.literal_eval(product_info[0])
                 product_information.append(ProductInfo(item.service_id,item.service_tag,product_info_dictionary))
     return product_information
+
+
+
+
+
+
+
+
+
+
+
+def homepage1(request):
+    #pdb.set_trace()
+    response = get_services()
+    list_service = []
+    service=response.readlines()
+    service_list = ast.literal_eval(service[0])
+    for key in service_list:
+        list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
+    total_list=total_tags(list_service)
+    product_information=get_product_info(total_list)
+    return render(request,"homepage1.html",locals())
