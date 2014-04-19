@@ -135,3 +135,90 @@ def homepage1(request):
     total_list=total_tags(list_service)
     product_information=get_product_info(total_list)
     return render(request,"homepage1.html",locals())
+
+
+
+
+
+
+
+
+def submitdetails(request):
+    import pdb
+   # pdb.set_trace()
+    service_id = request.POST.get('serviceid')
+    product_id = request.POST.get('productid')
+    product_name = request.POST.get('productname')
+    machinename=request.POST.get('username')
+    machinepassword=request.POST.get('password')
+    operatingsystem=request.POST.get('os')
+    machineip=request.POST.get('ipaddress')
+    product_details=product_info(service_id,product_id)
+    for key in product_details.keys():
+        os=product_details[key][2]
+        architecture=product_details[key][3]
+        username="odsiuser"
+        validate_result=validate(username,service_id,product_id,machineip,machinename,machinepassword,os,architecture)
+    return render(request,"totaldetails.html",locals())
+
+
+
+
+
+def validate(username,service_id,product_id,ip,machineusername,machinepassword,os,architecture):
+#    url = "http://10.233.52.111:8001/validate"
+#    pdb.set_trace()
+    url="http://10.233.52.111:8001/request/"
+    dic={"username":username,"service_id":service_id,"product_id":product_id,"machine_details":{"ip_address":ip,"machine_username":machineusername,"machine_password":machinepassword},"parameters":{},"os":os}
+    jsondata = json.dumps(dic)
+    req = urllib2.Request(url, \
+                         headers = {
+
+                                     "Content-Type": "application/json",
+                                   },                        \
+                         data = jsondata)
+    f = urllib2.urlopen(req)
+    response = f.read()
+    res = json.loads(response)
+    return res
+
+
+
+
+
+
+
+def product_info(service_id,product_id):
+     import pdb
+ #pdb.set_trace()
+     req = urllib2.Request("http://10.233.52.111:8001/products/"+service_id+"/"+product_id)
+     res = urllib2.urlopen(req)
+     product=res.readlines()
+     product_infolist = ast.literal_eval(product[0])
+     return product_infolist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
