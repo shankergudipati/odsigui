@@ -19,7 +19,6 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
     padding: 0;
-    border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
@@ -186,7 +185,7 @@ html,body{
     text-decoration:none;
     text-align:center;
     margin-top:10px;
-    margin-left:10px;
+    margin-left:30px;
     cursor:pointer;
     position:relative;
     border: 0 none;
@@ -399,11 +398,11 @@ html,body{
     border-top-right-radius: 4px;
     cursor: pointer;
     float: left;
-    height: 339px;
+    height: 150px;
     margin-bottom: 20px;
     margin-left: 20px;
     position: relative;
-    width: 250px;
+    width: 225px;
 }
 
 .bxslider > li > div > .head{
@@ -419,7 +418,7 @@ html,body{
     padding:8px 8px 0 8px;    
     text-align: justify;   
     line-height: 25px;
-   height: 200px;
+   height: 10px;
 }
 
 #page-content{               

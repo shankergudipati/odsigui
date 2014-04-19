@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-    <html>
+
+   <html>
 
     <head>
 	{% load staticfiles %}
@@ -12,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="/static/new/css/jquery-ui-1.10.4.custom.css" />
         <link rel="stylesheet" type="text/css" href="/static/new/css/avgrund.css" />           
         <script type="text/javascript" src="/static/new/script/jquery.avgrund.js"></script>
-        
+        <script type="text/javascript" src="/static/new/script/bootstrap.js"></script>        
+        <link rel="stylesheet" type="text/css" href="/static/new/css/bootstrap.css" />
     
 
 
@@ -63,6 +65,22 @@ function showConfiguration(){
 
 
 <script type="text/javascript">
+function click_details(product_name,service_id,service_tag,version,os,architecture)
+{
+
+//var inner_html="<h3>product Name : "+product_name+"</h3><h3>service _id"+service_id+"</h3><h3>service_tag"+service_tag+"</h3><h3>version"+version+"</h3><h3>Supporting OS"+os+"</h3><h3>Architecture"+architecture+"</h3>";
+
+//inner_html+="<br/><br/><table><tr><td rowspan='5' style='vertical-align:bottom;'><img src='/static/images/"+service_id+".png'</td><td style='vertical-align: top;'> Product Name :"+product_name+"</td></tr><tr><td>Version : "+version+"</td></tr><tr><td>Architecture :"+architecture+"</td></tr><tr><td>Supporting OS:"+os+"</td></tr><tr><td><button type=button value='install'>install</button></td></tr></table>"
+var inner_html=""
+inner_html+=" <div style='width:500px;height:250px;padding:20px;margin:100px 0px 0px 300px;background-image:linear-gradient(#FAFAFA 0%, #EBEBEB 100%);background-repeat:repeat-x;border:3px solid #6FB3E0;border-radius:4px;'><div style='width: 200px; display:inline-block;'> <img src='/static/images/"+service_id+".png' /></div>        <div style='vertical-align:top; display:inline-block;'><ul><li><font color='#6FB3E0' style='font-weight:bold;'> Product Name :</font>"+product_name+" </li> <br><li><font color='#6FB3E0' style='font-weight:bold;'> Version : </font>"+version+" </li><br> <li><font color='#6FB3E0' style='font-weight:bold;'>Architecture :</font>"+architecture+" </li><br> <li><font color='#6FB3E0' style='font-weight:bold;'> Supporting OS:</font>"+os+"</li><br> <li> <button class = 'btn' value='install' style='margin-left:0px;' data-toggle='modal' data-target='#modalbox' >Install</button> </li> </ul> </div>    </div>";
+document.getElementById("product_filter").innerHTML=inner_html;
+
+
+
+//inner_html+="<table>  <tr><td rowspan='4' style='vertical-align: bottom;' ><img src='/static/images/"+service_id+".png'</td>    <td>January</td>        </tr> <tr>    <td>February</td></tr> <tr>    <td>February</td>  </tr><tr>   <td>February</td>  </tr></table>"
+//document.getElementById("product_filter").innerHTML=inner_html;
+
+}
 function contains(list, element) {
     //alert(typeof list);
     //alert(list);
@@ -78,19 +96,12 @@ function contains(list, element) {
 
 function sidebar_click(tag)
 {
-//document.getElementById("div1").innerHTML="content changed"
-//var hello = "{{product_information.0.service_tag}}";
-//alert(hello);
 var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{% endfor %}{% endfor %}";
 product_info=product_info.split(":");
-//alert(product_info[4])
 var inner_html="";
 for (var i=0 ;i<product_info.length; i++) {
-//alert(product_info[i])
-//alert(product_info[i]);
-//alert(tag);
 if (product_info[i]==tag){
-inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><br><br><h4><b>Product : "+product_info[i-4]+"<h4><b>Version : "+product_info[i-3]+"<h4><b>Supporting OS : "+product_info[i-2]+"<h4><b>Architecture : "+product_info[i-1]+"</div><button class='install-btn btn'>Install</button></div></li>"
+inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><!--<h4><b>Product : "+product_info[i-4]+"--></div><button class='btn' onClick='click_details(\""+product_info[i-4]+"\",\""+product_info[i+1]+"\",\""+product_info[i]+"\",\""+product_info[i-3]+"\",\""+product_info[i-2]+"\",\""+product_info[i-1]+"\");' >Details</button></div></li>"
 
 
 
@@ -105,9 +116,18 @@ document.getElementById("product_filter").innerHTML=inner_html;
 <script type="text/javascript">
 function display_all()
 {
-//alert('this is all');
-var inner_html="{% for item in product_information %}{% for key, values in item.product_info_list.items %}<li><div title='{{ values.0 }}'><div class='head'><img src='/static/images/{{key}}.png'/></div><div class='content'><h4><b>Product : {{ values.0 }} </b></h4><h4><b>Version : {{ values.1 }} </b></h4><h4><b>Operating System : {{ values.2 }} </b></h4><h4><b>Architecture : {{ values.3 }} </b></h4>{% endfor %}</div><button class='install-btn btn'>Install</button></div></li>{% endfor %}";
-document.getElementById("product_filter").innerHTML=inner_html;
+	//alert('this is all');
+	//var inner_html="{% for item in product_information %}{% for key, values in item.product_info_list.items %}<li><div title='{{ values.0 }}'><div class='head'><img src='/static/images/{{key}}.png'/></div><div class='content'><h4><b>Product : {{ values.0 }} </b></h4><h4><b>Version : {{ values.1 }} </b></h4><h4><b>Operating System : {{ values.2 }} </b></h4><h4><b>Architecture : {{ values.3 }} </b></h4>{% endfor %}</div><button class='install-btn btn' onClick='click_details(\'{{ values.0 }}\',\'{{item.service_id}}\',\'{{item.service_tag}}\');'>Install</button></div></li>{% endfor %}";
+	var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{% endfor %}{% endfor %}";
+	product_info=product_info.split(":");
+	var inner_html="";
+	for (var i=0 ;i<product_info.length-1; i=i+6) {
+              
+		inner_html+= "<li><div title="+product_info[i]+"><div class='head'><img src='/static/images/"+product_info[i+5]+".png' /></div><div class='content'><!--Product : "+product_info[i]+"--></div><button class='btn' onClick='click_details(\""+product_info[i]+"\",\""+product_info[i+5]+"\",\""+product_info[i+4]+"\",\""+product_info[i+1]+"\",\""+product_info[i+2]+"\",\""+product_info[i+3]+"\");' >Details</button></div></li>";
+
+
+		document.getElementById("product_filter").innerHTML=inner_html;
+	}
 }
 </script>
 
@@ -190,15 +210,12 @@ document.getElementById("product_filter").innerHTML=inner_html;
 
                     <div class="content">
 
-                <h4><b>Product : {{ values.0 }} </b></h4>
-                <h4><b>Version : {{ values.1 }} </b></h4>
-                <h4><b>Operating System : {{ values.2 }} </b></h4>
-                <h4><b>Architecture : {{ values.3 }} </b></h4>
-
+              <!--  <h4><b>Product : {{ values.0 }} </b></h4>
+-->
                 {% endfor %}
                  </div>
 
-<button class="install-btn btn" >Install</button>
+<button class="btn" >Details</button>
 		</div>
                   </li>
              {% endfor %}
@@ -212,39 +229,46 @@ document.getElementById("product_filter").innerHTML=inner_html;
                 </div>
             </div>
         </div>
-        </div>       
-        <div class="modal-box">
-	<div id="details_popup">
-	    <h2>Details</h2>
-            content
-	    <button class="btn" type="button" id="test" onClick="showConfiguration()">Test</button>
-	</div>
-	<div  id="configuration_popup" style="visibility:hidden;">
-            <h2>Configurations</h2> 
+        </div>      
+
+
+
+
+ 
+        <div class="modal fade" id="modalbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content"  style="width:420px;">
+	<div class="modal-header">
+            <button class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+            <h2 class="modal-title" id="myModalLabel">Configurations</h2> 
+        </div>
+       <div class="modal-body">
             <form>
             <div class="label-row">
-                <div class="label">IP Address:</div>
+                <div class="label" style="color:black;font-size:15px;">IP Address:</div>
                 <div class="label-value">
-                    <input type="text" class="form-control" id="ip" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                    <input style="width:200px;" ype="text" class="form-control" id="ip" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
                 </div>
             </div>
             <div class="label-row">
-                <div class="label">UserName:</div>
+                <div class="label" style="color:black;font-size:15px;">UserName:</div>
                 <div class="label-value">
-                    <input type="text" class="form-control" id="username" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                    <input  style="width:200px;" type="text" class="form-control" id="username" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
                 </div>
             </div>
             <div class="label-row">
-                <div class="label">Password:</div>
+                <div class="label" style="color:black;font-size:15px;">Password:</div>
                 <div class="label-value">
-                    <input type="password" class="form-control" id="password" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
+                    <input type="password"  style="width:200px;"  class="form-control" id="password" onclick="$(this).css('border', '1px solid #CCCCCC');"/>
                 </div>
             </div>
                 <button class="btn" type="button" id="save" onclick="saveForm();">Save</button>
             <button type="reset" class="btn">Reset</button>
             </form>          
+       </div>
 </div>
         </div>
+</div>
          <script type="text/javascript" src="/static/new/script/common.js"></script>       
     </body>
 

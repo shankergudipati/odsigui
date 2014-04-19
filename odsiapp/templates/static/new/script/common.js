@@ -34,7 +34,7 @@ $(".paging2").children("li").on("click", function() {
 
 window.onload = function() {
 
-    $($(".paging2").find("li")[0]).click();
+  $($(".paging2").find("li")[0]).click();
     
     $('.install-btn').avgrund({
         height: 233,
