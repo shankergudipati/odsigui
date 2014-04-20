@@ -1,30 +1,31 @@
 from django.shortcuts import render
-
-import urllib2
-import simplejson as json
 from urllib import urlencode
-import time
-import json
-import ast
 from django.http import *
 from django.conf import settings
 import pdb
 
+import urllib2
+import simplejson as json
+import time
+import json
+import ast
 
 
-
+""" This is the definition of class Services """
 class Services:
      def __init__(self,service_id,service_name,service_tags):
          self.service_id = service_id
          self.service_name = service_name
          self.service_tags = service_tags
 
+""" This is the definition of class TagClass """
 class TagClass():
      def __init__(self,service_id,service_tag,software_id_name):
          self.service_id=service_id
          self.service_tag=service_tag
          self.software_id_name=software_id_name
 
+""" This is the definition of class ProductInfo """
 class ProductInfo:
      def __init__(self,service_id,service_tag,product_info_list):
          self.service_id=service_id
@@ -41,7 +42,6 @@ def get_services():
    response = urllib2.urlopen(request) 
    return response
 
-
 """get_service_by_tag() method returns the tag list by taking the service_id and tag_name as its input """
 def get_service_by_tag(service_id,tag_name):
    url = settings.TAGS_URL
@@ -49,20 +49,14 @@ def get_service_by_tag(service_id,tag_name):
    response = urllib2.urlopen(request) 
    return response
 
-
-
-
-
-
 """ This method renders homepage to ODSI portal 
 Creates a requestuest object calling responset api
 Calls the responset api using urllib2 storesponse into a responseponse object
 Reading the responseponse object and sorting it into a service object returns a single element list
 Converts the single element list into a json object
 Iterating through the service list obtained 
-Renders the local variables to homepage.html"""
-def homepage(request):
-    #pdb.set_trace()
+Renders the local variables to homepage1.html"""
+def homepage1(request):
     response = get_services()
     list_service = []
     service=response.readlines()
@@ -71,7 +65,7 @@ def homepage(request):
         list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
     total_list=total_tags(list_service)
     product_information=get_product_info(total_list)
-    return render(request,"homepage.html",locals())
+    return render(request,"homepage1.html",locals())
 
 """ get_tags_by_service method returns the tags by taking the services """
 def get_tags_by_service(service_id):
@@ -84,7 +78,6 @@ def get_tags_by_service(service_id):
 
 """ total_tags method returns the entire tags for the respective services """
 def total_tags(list_service):
-#    pdb.set_trace()
     total_list=[]
     try:
         for item in list_service:
@@ -101,6 +94,7 @@ def total_tags(list_service):
     finally:
         return total_list
 
+""" get_product_info method return the total information about the products """
 def get_product_info(total_list):
     product_information=[]
     for item in total_list:
@@ -114,38 +108,9 @@ def get_product_info(total_list):
                 product_information.append(ProductInfo(item.service_id,item.service_tag,product_info_dictionary))
     return product_information
 
-
-
-
-
-
-
-
-
-
-
-def homepage1(request):
-    #pdb.set_trace()
-    response = get_services()
-    list_service = []
-    service=response.readlines()
-    service_list = ast.literal_eval(service[0])
-    for key in service_list:
-        list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
-    total_list=total_tags(list_service)
-    product_information=get_product_info(total_list)
-    return render(request,"homepage1.html",locals())
-
-
-
-
-
-
-
-
+""" This method is called when INSTALL button is clicked after entering the details """
 def submitdetails(request):
     import pdb
-   # pdb.set_trace()
     service_id = request.POST.get('serviceid')
     product_id = request.POST.get('productid')
     product_name = request.POST.get('productname')
@@ -161,14 +126,9 @@ def submitdetails(request):
         validate_result=validate(username,service_id,product_id,machineip,machinename,machinepassword,os,architecture)
     return render(request,"totaldetails.html",locals())
 
-
-
-
-
+""" This method validates the details entered by the username """
 def validate(username,service_id,product_id,ip,machineusername,machinepassword,os,architecture):
-#    url = "http://10.233.52.111:8001/validate"
-#    pdb.set_trace()
-    url="http://10.233.52.111:8001/request/"
+    url=settings.REQUEST_VALIDATE
     dic={"username":username,"service_id":service_id,"product_id":product_id,"machine_details":{"ip_address":ip,"machine_username":machineusername,"machine_password":machinepassword},"parameters":{},"os":os}
     jsondata = json.dumps(dic)
     req = urllib2.Request(url, \
@@ -182,16 +142,10 @@ def validate(username,service_id,product_id,ip,machineusername,machinepassword,o
     res = json.loads(response)
     return res
 
-
-
-
-
-
-
+""" This method returns the information about particular product by using the service_id and product_id"""
 def product_info(service_id,product_id):
-     import pdb
- #pdb.set_trace()
-     req = urllib2.Request("http://10.233.52.111:8001/products/"+service_id+"/"+product_id)
+     url=settings.PRODUCT_INFO
+     req = urllib2.Request(url+service_id+"/"+product_id)
      res = urllib2.urlopen(req)
      product=res.readlines()
      product_infolist = ast.literal_eval(product[0])
@@ -207,12 +161,24 @@ def product_info(service_id,product_id):
 
 
 
+""" This method renders homepage to ODSI portal
+Creates a requestuest object calling responset api
+Calls the responset api using urllib2 storesponse into a responseponse object
+Reading the responseponse object and sorting it into a service object returns a single element list
+Converts the single element list into a json object
+Iterating through the service list obtained
+Renders the local variables to homepage.html"""
 
-
-
-
-
-
+def homepage(request):
+    response = get_services()
+    list_service = []
+    service=response.readlines()
+    service_list = ast.literal_eval(service[0])
+    for key in service_list:
+        list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
+    total_list=total_tags(list_service)
+    product_information=get_product_info(total_list)
+    return render(request,"homepage.html",locals())
 
 
 

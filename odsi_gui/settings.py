@@ -97,4 +97,5 @@ SERVICES_URL='http://10.233.52.111:8002/'
 TAGS_URL='http://10.233.52.111:8001/servicebytag/'
 TAGS_BY_SERVICEID_URL='http://10.233.52.111:8001/tags/'
 PRODUCT_INFO_URL='http://10.233.52.111:8002/products/'
-
+REQUEST_VALIDATE='http://10.233.52.111:8001/request/'
+PRODUCT_INFO='http://10.233.52.111:8001/products/'
