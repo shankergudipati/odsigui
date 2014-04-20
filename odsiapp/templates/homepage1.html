@@ -20,10 +20,11 @@
 
 
 <script>
+
+//************This method clickd returns the status of all the requests*************//
 function clickd()
 {
 $.ajax({
-    //url: 'http://10.233.52.152:9090/samplemethod',
     url: 'http://10.233.52.111:8001/req_status_all/',
     contentType: "application/json",
     dataType: "jsonp",
@@ -65,6 +66,7 @@ function showConfiguration(){
 
 
 <script type="text/javascript">
+// ***********This method click_details displays the details of the selected product************//
 function click_details(product_name,product_id,service_tag,version,os,architecture,service_id)
 {
 
@@ -97,7 +99,7 @@ function contains(list, element) {
     return false;
 }
 
-
+//*******This method sidebar_click is responsible of displaying the products by categories*******//
 function sidebar_click(tag)
 {
 var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{{item.service_id}}:{% endfor %}{% endfor %}";
@@ -118,6 +120,7 @@ document.getElementById("product_filter").innerHTML=inner_html;
 </script>
 
 <script type="text/javascript">
+//****** This method display_all displays all products *********//
 function display_all()
 {
 	//alert('this is all');
@@ -153,7 +156,7 @@ function display_all()
                     <div class="sidebar">
 
 
-
+<!--******** This is the code responsible for displaying the sidebar of the mainpage  ******** -->
 		<ul class="paging2">
                 <li onClick="display_all();"><span>All<span></span></span></li>
                  {% for item in list_service %}
@@ -187,6 +190,7 @@ function display_all()
 
 
                             <div class="slider-wrapper">
+<!--****** This is the center part of the mainpage which changes its content by the actions performed******* -->
                                 <ul id="product_filter" class="bxslider">
 
 
@@ -239,7 +243,7 @@ function display_all()
 
 
 
-
+<!--****** pop-up for asking the details    *******-->
 
  
         <div class="modal fade" id="modalbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
