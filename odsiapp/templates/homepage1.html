@@ -20,6 +20,12 @@
 
 
 <script>
+function statuscheck()
+{
+alert("loaded");
+alert("{{final_status}}");
+}
+
 
 //************This method clickd returns the status of all the requests*************//
 function clickd()
@@ -117,6 +123,7 @@ inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/
 document.getElementById("product_filter").innerHTML=inner_html;
 
 }
+
 </script>
 
 <script type="text/javascript">
@@ -136,9 +143,11 @@ function display_all()
 		document.getElementById("product_filter").innerHTML=inner_html;
 	}
 }
-function statuscheck()
+function installclicked()
 {
-alert("{{validate_result}}");
+//document.getElementsByTagName("body").innerHTML="";
+document.getElementById("loader").style.display="block";
+document.getElementById("modalbox").style.display="none";
 }
 </script>
 
@@ -189,7 +198,9 @@ alert("{{validate_result}}");
                             <div class="page-header"><span class="space">Quality Engineering</span><span>|</span><span class="sub-text">Software List for installation.</span>
                             </div>
 
-
+<div id="loader" style="position: relative;display:none;left: 41%;z-index:9999">
+<img src='/static/images/loaders.gif' height='15%' width='15%' style="z-index:9999;"/><h3>installing............</h3>
+</div>
 
 
 
@@ -286,7 +297,7 @@ alert("{{validate_result}}");
 <input type="hidden" id='os' name="os" value="">
 
 
-                <button class="btn" type="submit" id="submit" name="install" value="install">Install</button>
+                <button class="btn" type="submit" id="submit" name="install" value="install" onclick="installclicked();">Install</button>
             <button type="reset" class="btn">Reset</button>
             </form>          
        </div>
