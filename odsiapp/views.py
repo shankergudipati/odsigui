@@ -65,6 +65,9 @@ def homepage1(request):
         list_service.append(Services(key,service_list[key],get_tags_by_service(key)))
     total_list=total_tags(list_service)
     product_information=get_product_info(total_list)
+    if request.method == 'POST' :
+        if request.POST.get('install') == 'install' :
+             validate_result=submitdetails(request)
     return render(request,"homepage1.html",locals())
 
 """ get_tags_by_service method returns the tags by taking the services """
@@ -124,7 +127,8 @@ def submitdetails(request):
         architecture=product_details[key][3]
         username="odsiuser"
         validate_result=validate(username,service_id,product_id,machineip,machinename,machinepassword,os,architecture)
-    return render(request,"totaldetails.html",locals())
+    #pdb.set_trace()
+    return validate_result
 
 """ This method validates the details entered by the username """
 def validate(username,service_id,product_id,ip,machineusername,machinepassword,os,architecture):

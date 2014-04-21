@@ -136,11 +136,15 @@ function display_all()
 		document.getElementById("product_filter").innerHTML=inner_html;
 	}
 }
+function statuscheck()
+{
+alert("{{validate_result}}");
+}
 </script>
 
 </head>
 
-    <body>
+    <body onload="statuscheck();">
 
         <div class="page">
             <div id="header">
@@ -254,7 +258,7 @@ function display_all()
             <h2 class="modal-title" id="myModalLabel">Configurations</h2> 
         </div>
        <div class="modal-body">
-        <form role="form" action="/submitdetails/" method="POST">
+        <form role="form" action="" method="POST">
 {% csrf_token %}
     
 	<div class="label-row">
@@ -282,7 +286,7 @@ function display_all()
 <input type="hidden" id='os' name="os" value="">
 
 
-                <button class="btn" type="submit" id="save">Save</button>
+                <button class="btn" type="submit" id="submit" name="install" value="install">Install</button>
             <button type="reset" class="btn">Reset</button>
             </form>          
        </div>
