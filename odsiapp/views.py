@@ -67,7 +67,7 @@ def homepage1(request):
     product_information=get_product_info(total_list)
     if request.method == 'POST' :
         if request.POST.get('install') == 'install' :
-             validate_result=submitdetails(request)
+             final_status=submitdetails(request)
     return render(request,"homepage1.html",locals())
 
 """ get_tags_by_service method returns the tags by taking the services """
@@ -127,12 +127,33 @@ def submitdetails(request):
         architecture=product_details[key][3]
         username="odsiuser"
         validate_result=validate(username,service_id,product_id,machineip,machinename,machinepassword,os,architecture)
-    #pdb.set_trace()
-    return validate_result
+        
+    	if validate_result[0]=="true" :
+             if validate_result[1]=="true" :
+                  bootstrap_result=bootstrap(username,service_id,product_id,machineip,machinename,machinepassword,os,architecture)
+    return bootstrap_result
 
-""" This method validates the details entered by the username """
 def validate(username,service_id,product_id,ip,machineusername,machinepassword,os,architecture):
     url=settings.REQUEST_VALIDATE
+    data_dictionary={"ip_address":ip,"os":os,"architecture":architecture,"user_name":machineusername,"user_password":machinepassword}
+    jsondata = json.dumps(data_dictionary)
+    request = urllib2.Request(url, \
+                         headers = {
+
+                                     "Content-Type": "application/json",
+                                   },                        \
+                         data = jsondata)
+    f = urllib2.urlopen(request)
+    response = f.read()
+    response = json.loads(response)
+    return response
+
+
+
+
+""" This method bootstraps the software on to the specified machine details """
+def bootstrap(username,service_id,product_id,ip,machineusername,machinepassword,os,architecture):
+    url=settings.BOOTSTRAP_URL
     dic={"username":username,"service_id":service_id,"product_id":product_id,"machine_details":{"ip_address":ip,"machine_username":machineusername,"machine_password":machinepassword},"parameters":{},"os":os}
     jsondata = json.dumps(dic)
     req = urllib2.Request(url, \
