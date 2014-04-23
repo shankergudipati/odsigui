@@ -15,6 +15,7 @@
         <script type="text/javascript" src="/static/new/script/jquery.avgrund.js"></script>
         <script type="text/javascript" src="/static/new/script/bootstrap.js"></script>        
         <link rel="stylesheet" type="text/css" href="/static/new/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="/static/new/css/bootstrap.min.css" />
     
 
 
@@ -129,7 +130,7 @@ var inner_html="";
 for (var i=0 ;i<product_info.length; i++) {
 if (product_info[i]==tag)
 {
-inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><!--<h4><b>Product : "+product_info[i-4]+"--></div><button class='btn' onClick='click_details(\""+product_info[i-4]+"\",\""+product_info[i+1]+"\",\""+product_info[i]+"\",\""+product_info[i-3]+"\",\""+product_info[i-2]+"\",\""+product_info[i-1]+"\",\""+product_info[i+2]+"\");' >Details</button></div></li>"
+inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><!--<h4><b>Product : "+product_info[i-4]+"--></div><button id="button123"  href="#modal-container-975650" class="btn" data-toggle="modal"  >Details</button></div></li>"
 
 }
 } 
@@ -150,7 +151,7 @@ function display_all()
 	var inner_html="";
 	for (var i=0 ;i<product_info.length-1; i=i+7) {
               
-		inner_html+= "<li><div title="+product_info[i]+"><div class='head'><img src='/static/images/"+product_info[i+5]+".png' /></div><div class='content'><!--Product : "+product_info[i]+"--></div><button class='btn' onClick='click_details(\""+product_info[i]+"\",\""+product_info[i+5]+"\",\""+product_info[i+4]+"\",\""+product_info[i+1]+"\",\""+product_info[i+2]+"\",\""+product_info[i+3]+"\",\""+product_info[i+6]+"\");'>Details</button></div></li>";
+		inner_html+= "<li><div title="+product_info[i]+"><div class='head'><img src='/static/images/"+product_info[i+5]+".png' /></div><div class='content'><!--Product : "+product_info[i]+"--></div><button id="button123"  href="#modal-container-975650" class="btn" data-toggle="modal" >Details</button></div></li>";
 
 
 		document.getElementById("product_filter").innerHTML=inner_html;
@@ -260,7 +261,7 @@ function template_details_display(tag)
                 {% endfor %}
                  </div>
 
-<button class="btn" >Details</button>
+<button id="button123"  href="#modal-container-975650" class="btn" data-toggle="modal">Details</button>
 		</div>
                   </li>
              {% endfor %}
@@ -326,6 +327,138 @@ function template_details_display(tag)
 </div>
         </div>
 </div>
+
+
+
+
+<!--*******************************************************************************************-->
+
+
+
+
+<div class="modal fade" id="modal-container-975650" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title" id="myModalLabel">
+								Configuration Details
+							</h4>
+						</div>
+						<div class="modal-body">
+						<div class="tabbable" id="tabs-857719">
+				<ul class="nav nav-pills nav-justified">
+					<li class="active">
+						<a href="#details" data-toggle="tab">Details</a>
+					</li>
+					<li>
+						<a href="#available" data-toggle="tab">Available</a>
+					</li>
+					<li>
+						<a href="#cloud" data-toggle="tab">Cloud</a>
+					</li>
+					
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="details">
+						<p>
+						<form role="form">
+	<br>
+	<div width="40%">
+	<img src="./images.jpg" height="100%" width="40%"/>
+	</div>
+    <div float="right"> 
+	<label style=" float: right; margin-top: -30%; margin-right: 22%; ">Product : Mysql </label>
+	<label style=" float: right; margin-top: -20%; margin-right: 22%; ">Version : 1.1 </label>
+	<label style=" float: right; margin-top: -10%; margin-right: 22%; ">Architecture : x86_64 </label>
+	<label style=" float: right; margin-top: 0%; margin-right: 22%; ">Operating System : linux </label>
+	</div>
+	
+	<div class="btn-group" style=" float: right; margin-top: 3%; margin-right: 21%; ">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+   Mode of Installation<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Install on Existing VM</a></li>
+    <li><a href="#">Provision VM on openstack</a></li>
+    <li><a href="#">Provision VM on AWS</a></li>
+    <li><a href="#">Provision VM on other service</a></li>
+  </ul>
+</div>
+<br><br>
+	<div class="modal-footer" style=" position: relative; margin-top: 19%; ">
+							<button type="submit" class="btn btn-primary">Next</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> 
+						</div>
+						</form>
+						</p>
+					</div>
+					<div class="tab-pane" id="available">
+						<form role="form">
+                 <br>
+							<div class="form-group"><label>IP address</label><input type="text" class="form-control" id="machinename" placeholder="Enter Machine IP" >
+		  </div>
+		  <br>
+		  <div class="form-group"><label>Username</label><input type="text" class="form-control" id="machinename" placeholder="Enter Username" >
+		  </div>
+		  <br>
+		  <div class="form-group">
+		    <label>Password</label>
+		    <input type="password" class="form-control" id="machinepassword" placeholder="Enter Password" >
+		  </div>
+		<br>
+		
+		  
+		  <div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Login</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button> 
+						</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="cloud">
+						<form role="form">
+                 <br>
+							<div class="form-group"><label>Access ID</label><input type="text" class="form-control" id="machinename" placeholder="Enter Access ID" >
+		  </div>
+		  <br>
+		  <div class="form-group">
+		    <label>Secret key</label>
+		    <input type="password" class="form-control" id="machinepassword" placeholder="Enter Secret key" >
+		  </div>
+		  <br>
+		  <div class="form-group"><label>KeyPair</label><input type="text" class="form-control" id="machinename" placeholder="Enter KeyPair" >
+		  </div>
+		  <br>
+		  
+		<br>
+		  
+		  <div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Login</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button> 
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+							
+						</div>
+					</div>
+					
+			</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
          <script type="text/javascript" src="/static/new/script/common.js"></script>       
     </body>
