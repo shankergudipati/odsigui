@@ -103,12 +103,6 @@ alert(product_name,product_id);
 
 
 
-
-
-
-
-
-
 function contains(list, element) {
     //alert(typeof list);
     //alert(list);
@@ -121,7 +115,7 @@ function contains(list, element) {
     return false;
 }
 
-//*******This method sidebar_click is responsible of displaying the products by categories*******//
+/*******This method sidebar_click is responsible of displaying the products by categories*******/
 function sidebar_click(tag)
 {
 var product_info = "{% for item in product_information %}{% for key, values in item.product_info_list.items %}{{ values.0 }}:{{ values.1 }}:{{ values.2 }}:{{ values.3 }}:{{item.service_tag}}:{{key}}:{{item.service_id}}:{% endfor %}{% endfor %}";
@@ -130,8 +124,7 @@ var inner_html="";
 for (var i=0 ;i<product_info.length; i++) {
 if (product_info[i]==tag)
 {
-inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><!--<h4><b>Product : "+product_info[i-4]+"--></div><button id="button123"  href="#modal-container-975650" class="btn" data-toggle="modal"  >Details</button></div></li>"
-
+inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png'/></div><div class='content'></div><button id='button123'  href='#modal-container-975650' class='btn' data-toggle='modal'  >Details</button></div></li>";
 }
 } 
 //alert(product_info);
@@ -151,7 +144,7 @@ function display_all()
 	var inner_html="";
 	for (var i=0 ;i<product_info.length-1; i=i+7) {
               
-		inner_html+= "<li><div title="+product_info[i]+"><div class='head'><img src='/static/images/"+product_info[i+5]+".png' /></div><div class='content'><!--Product : "+product_info[i]+"--></div><button id="button123"  href="#modal-container-975650" class="btn" data-toggle="modal" >Details</button></div></li>";
+		inner_html+= "<li><div title="+product_info[i]+"><div class='head'><img src='/static/images/"+product_info[i+5]+".png' /></div><div class='content'><!--Product : "+product_info[i]+"--></div><button id='button123'  href='#modal-container-975650' class='btn' data-toggle='modal' >Details</button></div></li>";
 
 
 		document.getElementById("product_filter").innerHTML=inner_html;
