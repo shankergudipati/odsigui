@@ -93,6 +93,21 @@ document.getElementById("product_filter").innerHTML=inner_html;
 //document.getElementById("product_filter").innerHTML=inner_html;
 
 }
+
+
+function display_template_details(product_name,product_id,service_tag,version,os,architecture,service_id)
+{
+alert(product_name,product_id);
+}
+
+
+
+
+
+
+
+
+
 function contains(list, element) {
     //alert(typeof list);
     //alert(list);
@@ -112,10 +127,9 @@ var product_info = "{% for item in product_information %}{% for key, values in i
 product_info=product_info.split(":");
 var inner_html="";
 for (var i=0 ;i<product_info.length; i++) {
-if (product_info[i]==tag){
+if (product_info[i]==tag)
+{
 inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/static/images/"+product_info[i+1]+".png' /></div><div class='content'><!--<h4><b>Product : "+product_info[i-4]+"--></div><button class='btn' onClick='click_details(\""+product_info[i-4]+"\",\""+product_info[i+1]+"\",\""+product_info[i]+"\",\""+product_info[i-3]+"\",\""+product_info[i-2]+"\",\""+product_info[i-1]+"\",\""+product_info[i+2]+"\");' >Details</button></div></li>"
-
-
 
 }
 } 
@@ -123,7 +137,6 @@ inner_html+= "<li><div title="+product_info[i-4]+"><div class='head'><img src='/
 document.getElementById("product_filter").innerHTML=inner_html;
 
 }
-
 </script>
 
 <script type="text/javascript">
@@ -146,8 +159,11 @@ function display_all()
 function installclicked()
 {
 //document.getElementsByTagName("body").innerHTML="";
-document.getElementById("loader").style.display="block";
-document.getElementById("modalbox").style.display="none";
+document.getElementById("submit").submit();
+}
+
+function template_details_display(tag)
+{
 }
 </script>
 
@@ -176,7 +192,13 @@ document.getElementById("modalbox").style.display="none";
                   <li><span>{{item.service_name}}<span class="icon-collapse"></span></span>
                         <ul class="sub">
                                 {% for tag in item.service_tags %}
-                                <li data-id="div1" onclick="sidebar_click('{{tag}}');"><span class="active">{{tag}}</span></li>
+                                {% if tag == "Existing" %}
+	 <li data-id="div1" onclick="template_details_display('{{tag}}');"><span class="active">{{tag}}</span></li>		
+			{% elif tag == "Import" %}
+	<li data-id="div1" onclick="template_details_display('{{tag}}');"><span class="active">{{tag}}</span></li>			
+		{% else %}
+		   <li data-id="div1" onclick="sidebar_click('{{tag}}');"><span class="active">{{tag}}</span></li>
+		{% endif %}
                         {% endfor %}
                     </ul>
                    </li>
@@ -297,7 +319,7 @@ document.getElementById("modalbox").style.display="none";
 <input type="hidden" id='os' name="os" value="">
 
 
-                <button class="btn" type="submit" id="submit" name="install" value="install" onclick="installclicked();">Install</button>
+                <button class="btn" id="submit" name="install" value="install" onclick="installclicked();">Install</button>
             <button type="reset" class="btn">Reset</button>
             </form>          
        </div>
